@@ -1,6 +1,5 @@
 # GLUC_2017
 ## GLUC 2017 Updated Version
-====
 
 Generalized Land Use Change (gluc) is a probabilistic cellular automata
 program used by the Landuse Evolution and Assessment Model (LEAM). Briefly,
@@ -19,7 +18,6 @@ total number of jobs assigned to a cell), and optionally a final
 probility map.
 
 ## Note
-====
 The gluc program may be used independently of LEAM but certain historic
 anomalies may be confusing.  Hopefully these will be removed over time.
 
