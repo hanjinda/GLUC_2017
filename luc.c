@@ -100,6 +100,8 @@ static float openspace_los;
 
 static char *outbuf;
 
+static int lu_count_res;
+static int lu_count_com;
 
 /* MPI information */
 static int upproc, downproc;
@@ -252,9 +254,11 @@ static void flagDevelopable(unsigned char *dev, unsigned char *luptr,
             break;
         case LU_LRES: case LU_HRES:
             *(dev+i) = !(RES_FLAG & flag);
+			lu_count_res += 1;
             break;
         case LU_COM:
             *(dev+i) = !(COM_FLAG & flag);
+			lu_count_com += 1;
             break;
         case LU_ROAD:
             *(dev+i) = !(ROAD_FLAG & flag);
@@ -660,9 +664,9 @@ void LUCinitGrids()
 
     // Get the RES and COM growth graphs
     if (debug && myrank == 0)  {
-        fprintf(stderr, "DEMAND_GRAPH_RES set to %s\n", 
+        fprintf(stderr, "2010-3: DEMAND_GRAPH_RES set to %s\n", 
                 SMEgetString("DEMAND_GRAPH_RES", "Population"));
-        fprintf(stderr, "DEMAND_GRAPH_COM set to %s\n", 
+        fprintf(stderr, "2010-3: DEMAND_GRAPH_COM set to %s\n", 
                 SMEgetString("DEMAND_GRAPH_COM", "Employment"));
     }
 
@@ -1159,6 +1163,7 @@ void updateProbRes(float *p, int count)
         p[i] = (p[i] * w > best_prob_res) ? best_prob_res : p[i] * w;
     }
 
+	
     return;
 }
 
@@ -1447,6 +1452,17 @@ void updateLU(unsigned char *lu, unsigned char *change, int count)
         if (change[i]) lu[i] = change[i];
 }
 
+/*
+float getRandom(float input){
+	float result;
+	while (result <= input * 1.05 || result >= input * 0.95){
+		result = input + drand48()*0.1;
+
+	}
+	fprintf(stderr, "20170310 sfk random: %f\n", result);
+	return result;
+}
+*/
 
 void updateRandom(float *rand, int count, int itr)
 {
@@ -1461,7 +1477,7 @@ void updateRandom(float *rand, int count, int itr)
     //if ((cptr = SMEgetFileName("RANDOM_MAP")) == NULL)  { - force run -edits by Pan 02/17/2017
         for (i=0; i<count; i+=1)
    //         rand[i] = drand48(); -edits by Pan 02/17/2017
-              rand[i] = 0.2;
+              rand[i] = 0.200;
         return;
     //} -force run -edits by Pan 02/17/2017
 
@@ -1514,6 +1530,17 @@ void readProbmap(float **p, int count, int type, char *name, int year)
     }
 }
 
+/* calculation res & com incresement 20170308 - jd
+*/
+float calIncre(float demandEnd, float demandStart, float startTime, float endTime){
+
+
+	fprintf(stderr, "20170307 --> starttime: %f\n", demandStart );
+	float increment = (demandEnd - demandStart)/(endTime - startTime);
+	fprintf(stderr, "20170309: probres=%lu, lu=%lu \n", sizeof(resprob), sizeof(lu));
+	return increment;
+}
+
 /* Run the LUC Model - 
 */
 void LUCrun()
@@ -1526,11 +1553,18 @@ void LUCrun()
     char *cptr;
     unsigned char *mask;
     double score;
-
     stime = SMEgetInt("START_DATE", 0);
     etime = SMEgetInt("END_DATE", 0);
     timestep = SMEgetInt("TIMESTEP", 1);
+
     if (debug && myrank == 0)  {
+		float increment_res = calIncre(GRAPHinterp(demandres, etime), GRAPHinterp(demandres, stime), (float)stime, (float)etime);
+		float increment_com = calIncre(GRAPHinterp(demandcom, etime), GRAPHinterp(demandcom, stime), (float)stime, (float)etime);
+
+		fprintf(stderr, "20170308 --> result_res: %f, result_com= %f \n", increment_res,increment_com);
+
+		fprintf(stderr, "20170310-2 --> A: %d, B: %d \n", lu_count_res, lu_count_com);
+
         fprintf(stderr, "LUCrun: start=%d, end=%d, timestep=%d\n",
                 stime, etime,timestep); 
         fprintf(stderr, "starting res = %f, starting com = %f\n",
@@ -1569,7 +1603,7 @@ void LUCrun()
     for (time=stime+timestep; time<etime+timestep; time+=timestep)  {
    //for (time=stime+timestep; time<=stime+timestep+timestep+timestep+timestep+timestep+timestep; time+=timestep)  {
         itr += 1;
-
+		fprintf(stderr, "20170310-4 --> A: %d, B: %d \n", lu_count_res, lu_count_com);
         if (debug && myrank == 0)  {
             fprintf(stderr, "\n\n\nStarting time %d, iteration = %d\n",
                     time, itr);
@@ -1616,6 +1650,7 @@ void LUCrun()
         if (desired_com - current_com > delta_com)  {
             flagDevelopable(developable, lu, elements, nondevelopable_flags);
             calcProbCom(comprob, elements);
+			//fprintf(stderr, "20170308 %f \n", (float)sizeof(developable));
             developCells(&current_com, &cell_count_com, comprob, density_com,
                         LU_COM, itr); 
             com = spatialCount(lu, elements, LU_COM);
@@ -1701,7 +1736,7 @@ void LUCrun()
     if (debug)
         fprintf(stderr, "P%d: Model Run Complete\n", myrank);
 
-
+	//fprintf(stderr, "20170309: %f \n", (float)resprob[418]);
     // WARNING: the following code is running only on the root processor.
     // Do NOT attempt computations that require all processors.
     if (myrank == 0)  {
