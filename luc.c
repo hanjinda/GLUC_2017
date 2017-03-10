@@ -88,7 +88,7 @@ static float *resprob, *comprob, *osprob;
 static float desired_res = 0.0, desired_com = 0.0, desired_os = 0.0;
 static float current_res = 0.0, current_com = 0.0, current_os = 0.0;
 static float delta_res = 20.0, delta_com = 5.0, delta_os = 500.0;
-static float best_prob_res = 0.5, best_prob_com = 0.25, best_prob_os = 0.01;
+static float best_prob_res = 0.235, best_prob_com = 0.215, best_prob_os = 0.01;
 static float k_min_res, k_min_com, k_min_os;
 
 static float *utilities_res, *utilities_com, *utilities_os, *utilities_tmp;
@@ -725,7 +725,7 @@ void LUCinitGrids()
     diffusion_res_flags = SMEgetInt("U_DIFFUSE_RES_FLAGS", RES_FLAG);
     diffusion_com_flags = SMEgetInt("U_DIFFUSE_COM_FLAGS", COM_FLAG);
     diffusion_os_flags = SMEgetInt("U_DIFFUSE_OS_FLAGS", OS_FLAG);
-    diffusion_init_step = SMEgetInt("U_DIFFUSE_INITSTEPS", 1);
+    diffusion_init_step = SMEgetInt("U_DIFFUSE_INITSTEPS", 10);
     diffusion_rate_os = SMEgetFloat("DIFFUSION_RATE_OS", 0.2);
     //test diffusion rate
     diffusion_rate_os = SMEgetFloat("DIFFUSION_RATE_OS", 0.0);
@@ -794,21 +794,21 @@ void LUCinitGrids()
     
 
     /* driver weights */
-    w_probmap_res = SMEgetFloat("W_PROBMAP_RES", 1.0);
-    w_probmap_com = SMEgetFloat("W_PROBMAP_COM", 1.0);
+    w_probmap_res = SMEgetFloat("W_PROBMAP_RES", 0.5);
+    w_probmap_com = SMEgetFloat("W_PROBMAP_COM", 0.5);
     w_probmap_os = SMEgetFloat("W_PROBMAP_OS", 1.0);
-    w_dynamic_res = SMEgetFloat("W_DYNAMIC_RES", 1.0);
-    w_dynamic_com = SMEgetFloat("W_DYNAMIC_COM", 1.0);
-    w_dynamic_os = SMEgetFloat("W_DYNAMIC_OS", 1.0);
-    w_utilities_res = SMEgetFloat("W_UTILITIES_RES", 10.0);
-    w_utilities_com = SMEgetFloat("W_UTILITIES_COM", 10.0);
-    w_utilities_os = SMEgetFloat("W_UTILITIES_OS", 10.0);
-    w_spontaneous_res = SMEgetFloat("W_RES_SPONTANEOUS", 10.0);
-    w_spontaneous_com = SMEgetFloat("W_COM_IND_SPONTANEOUS", 10.0);
-    w_spontaneous_os = SMEgetFloat("W_OPENSPACE_SPONTANEOUS", 10.0);
-    w_neighbors_res = SMEgetFloat("W_RES_NEIGHBORS", 0.1);
-    w_neighbors_com = SMEgetFloat("W_COM_IND_NEIGHBORS", 0.1);
-    w_neighbors_water = SMEgetFloat("W_OPENSPACE_WATER", 0.1);
+    w_dynamic_res = SMEgetFloat("W_DYNAMIC_RES", 30.0);
+    w_dynamic_com = SMEgetFloat("W_DYNAMIC_COM", 30.0);
+    w_dynamic_os = SMEgetFloat("W_DYNAMIC_OS", 10.0);
+    w_utilities_res = SMEgetFloat("W_UTILITIES_RES", 1.0);
+    w_utilities_com = SMEgetFloat("W_UTILITIES_COM", 1.0);
+    w_utilities_os = SMEgetFloat("W_UTILITIES_OS", 1.0);
+    w_spontaneous_res = SMEgetFloat("W_RES_SPONTANEOUS", 20.0);
+    w_spontaneous_com = SMEgetFloat("W_COM_IND_SPONTANEOUS", 20.0);
+    w_spontaneous_os = SMEgetFloat("W_OPENSPACE_SPONTANEOUS", 1.0);
+    w_neighbors_res = SMEgetFloat("W_RES_NEIGHBORS", 1);
+    w_neighbors_com = SMEgetFloat("W_COM_IND_NEIGHBORS", 1);
+    w_neighbors_water = SMEgetFloat("W_OPENSPACE_WATER", 1);
     w_growth_trend_res = SMEgetFloat("W_GROWTH_TRENDS_RES", 1.0);
     w_growth_trend_com = SMEgetFloat("W_GROWTH_TRENDS_COM_IND", 1.0);
     w_growth_trend_os = SMEgetFloat("W_GROWTH_TRENDS_OPENSPACE", 1.0);
@@ -1116,22 +1116,50 @@ float estimateWeight(float demand, float best, float delta,
 void updateProbRes(float *p, int count)
 {
     int i;
+    // edits by pan - 03/01/2017
+    float w, maxp, demand;
+
+    // calculate the demand
+    demand = desired_res - current_res;
+    if (demand <= 0)  {
+        demand = k_min_res;
+    }
+
+    if (debug && myrank == 0)  {
+       fprintf(stderr, "CalcProbRes: desired=%f, current=%f, demand=%f\n", 
+               desired_res, current_res, demand);
+    }
 
     // set the probability map
     for (i=0; i<count; i+=1)  {
       if (boundary[i]) {
         p[i] = powf(probmap_res[i], w_probmap_res)
-              * powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_res)
+              + powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_res)
               //  * powf(1, w_neighbors_res)
                //* powf(nngraph, w_neighbors_res)
-               //* powf(w_spontaneous_res * drand48() +
-                 * powf(w_spontaneous_res * 0 +
+               + powf(w_spontaneous_res * drand48() +
                       w_utilities_res * utilities_res[i], w_dynamic_res);
                //         w_utilities_res * 1, w_dynamic_res);
         }
         else
             p[i] = 0.0;
     }
+    // add normalization - pan edits 03/01/17
+    maxp = spatialMaxF(p, count);
+    for (i=0; i<count; i+=1)  {
+        p[i] /= (maxp / best_prob_res);
+    }
+
+    // estimate that will deliver demand
+    w = estimateWeight(demand, best_prob_res, delta_res, p, density_res);
+    if (w == 0.0 && myrank == 0)
+        fprintf(stderr, "WARNING: failed to establish bracket, w=%f\n", w); 
+
+    for (i=0; i<count; i+=1)  {
+        p[i] = (p[i] * w > best_prob_res) ? best_prob_res : p[i] * w;
+    }
+
+    return;
 }
 
 // calcProbRes -- updates the current probabilty 
@@ -1161,10 +1189,10 @@ void calcProbRes(float *p, int count)
         avail += 1;
         p[i] = powf(probmap_res[i], w_probmap_res)
                //* powf(nngraph, w_neighbors_res)
-               * powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_res)
+               + powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_res)
                //* powf(1, w_neighbors_res)
-               //* powf(w_spontaneous_res * drand48() +
-                 * powf(w_spontaneous_res * 0 +
+               + powf(w_spontaneous_res * drand48() +
+                //* powf(w_spontaneous_res * 0 +
                       w_utilities_res * utilities_res[i], w_dynamic_res);
                //         w_utilities_res * 1, w_dynamic_res);
         }
@@ -1201,21 +1229,50 @@ void calcProbRes(float *p, int count)
 void updateProbCom(float *p, int count)
 {
     int i;
+    //edits by pan -03/01/2017
+    float w, maxp, demand;
+
+    // calculate the demand
+    demand = desired_com - current_com;
+    if (demand <= 50)  {
+        demand = k_min_com;
+    }
+
+    if (debug && myrank == 0)  {
+       fprintf(stderr, "CalcProbCom: desired=%f, current=%f, demand=%f\n", 
+               desired_com, current_com, demand);
+    }
 
     // set the probability map
     for (i=0; i<count; i+=1)  {
       if (boundary[i]) {
         p[i] = powf(probmap_com[i], w_probmap_com)
                //* powf(nngraph, w_neighbors_com)
-               * powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_com)
+                + powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_com)
                //* powf(1, w_neighbors_com)
-               //* powf(w_spontaneous_com * drand48() +
-                 * powf(w_spontaneous_com * 0 +
+               + powf(w_spontaneous_com * drand48() +
+               //  * powf(w_spontaneous_com * 0 +
                       w_utilities_com * utilities_com[i], w_dynamic_com);
                //         w_utilities_com * 1, w_dynamic_com);
         }
         else
             p[i] = 0.0;
+    // add normalization - pan edits 03/01/17
+    maxp = spatialMaxF(p, count);
+    for (i=0; i<count; i+=1)  {
+        p[i] /= (maxp / best_prob_res);
+    }
+
+    // estimate that will deliver demand
+    w = estimateWeight(demand, best_prob_res, delta_res, p, density_res);
+    if (w == 0.0 && myrank == 0)
+        fprintf(stderr, "WARNING: failed to establish bracket, w=%f\n", w); 
+
+    for (i=0; i<count; i+=1)  {
+        p[i] = (p[i] * w > best_prob_res) ? best_prob_res : p[i] * w;
+    }
+
+    return;
     }
 }
 
@@ -1245,11 +1302,11 @@ void calcProbCom(float *p, int count)
     for (i=0; i<count; i+=1)  {
       if (boundary[i] && !nogrowth[i] && developable[i])
         p[i] = powf(probmap_com[i], w_probmap_com)
-               * powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_com)
+               + powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_com)
                //* powf(1, w_neighbors_com)
                //* powf(nngraph, w_neighbors_com)  
-             //* powf( w_spontaneous_com * drand48() * 0.01
-               * powf( w_spontaneous_com * 0
+             + powf( w_spontaneous_com * drand48() 
+               // powf( w_spontaneous_com * 0
                            + w_utilities_com * utilities_com[i], 
              //                + w_utilities_com * 1,
                          w_dynamic_com);
@@ -1523,10 +1580,10 @@ void LUCrun()
         // reading existing probmaps.
         readProbmap(&probmap_res, elements, sizeof (float),
                     //SMEgetFileName("PROBMAP_RES"), time); - change time to stime - edits by pan at 02/17/2017
-                      SMEgetFileName("PROBMAP_RES"), stime);
+                      SMEgetFileName("PROBMAP_RES"), time);
         readProbmap(&probmap_com, elements, sizeof (float),
                     //SMEgetFileName("PROBMAP_COM"), time); - change time to stime - edits by pan at 02/17/2017
-                      SMEgetFileName("PROBMAP_COM"), stime);
+                      SMEgetFileName("PROBMAP_COM"), time);
 
         desired_res = GRAPHinterp(demandres, time) - 
                       GRAPHinterp(demandres, stime);
