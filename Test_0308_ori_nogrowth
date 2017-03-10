@@ -1,0 +1,879 @@
+./bin/glucsrc/gluc -r -d -ppath . -p gluc -ci Test_0308_ori_nogrowth.conf
+GRAPHreadFile: reading ./gluc/Data/demand.graphs
+LEAM model running. Args = '-r -d -ppath . -p gluc -ci Test_0308_ori_nogrowth.conf '
+P0: rows = 0-2364, cols = 2226, elements = 5264490
+initGridMap(fname=./gluc/Data/boundary.bil, count=5264490, size=1
+initGridMap(fname=./gluc/Data/nogrowth.bil, count=5264490, size=1
+DEMAND_GRAPH_RES set to Population
+DEMAND_GRAPH_COM set to Employment
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+initGridMap(fname=./gluc/Data/pop_density.bil, count=5264490, size=4
+initGridMap(fname=./gluc/Data/emp_density.bil, count=5264490, size=4
+initGridMap(fname=./gluc/Data/landcover.bil, count=5264490, size=1
+20170309: probres=8, lu=8 
+20170309: probres=8, lu=8 
+20170308 --> result_res: 418.333344, result_com= 133.333328 
+LUCrun: start=2010, end=2040, timestep=1
+starting res = 0.000000, starting com = 0.000000
+ending res = 12550.000000, ending com = 4000.000000
+total res = 12550.000000, total com = 4000.000000
+Initializing diffusion out 10 steps
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+
+
+
+Starting time 2011, iteration = 1
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 418.000000, com = 133.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=133.000000, current=0.000000, demand=133.000000
+estimateWeight: demand = 133.000000, init dev = 527.803955
+seekMinWeight: w = 0.100000, dev = 0.000000
+estimateWeight: BRACKET set = 0.100000, 1.000000
+estimateWeight: w = 0.550000, (0.100000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.775000, (0.550000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.887500, (0.775000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.943750, (0.887500, 1.000000), dev = 2.800000
+estimateWeight: w = 0.971875, (0.943750, 1.000000), dev = 37.800018
+estimateWeight: w = 0.985937, (0.971875, 1.000000), dev = 173.599579
+estimateWeight: w = 0.978906, (0.971875, 0.985937), dev = 83.299965
+estimateWeight: w = 0.982422, (0.978906, 0.985937), dev = 121.799797
+estimateWeight: w = 0.982422, dev = 121.799797
+CalcProbRes: desired=418.000000, current=0.000000, demand=418.000000
+estimateWeight: demand = 418.000000, init dev = 16373.000000
+seekMinWeight: w = 0.100000, dev = 0.000000
+estimateWeight: BRACKET set = 0.100000, 1.000000
+estimateWeight: w = 0.550000, (0.100000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.775000, (0.550000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.887500, (0.775000, 1.000000), dev = 743.000000
+estimateWeight: w = 0.831250, (0.775000, 0.887500), dev = 0.000000
+estimateWeight: w = 0.859375, (0.831250, 0.887500), dev = 79.000000
+estimateWeight: w = 0.873438, (0.859375, 0.887500), dev = 363.000000
+estimateWeight: w = 0.880469, (0.873438, 0.887500), dev = 547.000000
+estimateWeight: w = 0.876953, (0.873438, 0.880469), dev = 450.000000
+estimateWeight: w = 0.876953, dev = 450.000000
+ITR 1: cell_count_res = 16373, current_res = 16373.000000
+ITR 1: cell_count_com = 754, current_com = 527.803955
+
+
+
+Starting time 2012, iteration = 2
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 837.000000, com = 267.000000, os = 0.000000
+updateRandom called
+Skipping COM: demand = -260.803955, delta = 5.000000
+Skipping RES: demand = -15536.000000, delta = 20.000000
+ITR 2: cell_count_res = 16373, current_res = 16373.000000
+ITR 2: cell_count_com = 754, current_com = 527.803955
+
+
+
+Starting time 2013, iteration = 3
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 1255.000000, com = 400.000000, os = 0.000000
+updateRandom called
+Skipping COM: demand = -127.803955, delta = 5.000000
+Skipping RES: demand = -15118.000000, delta = 20.000000
+ITR 3: cell_count_res = 16373, current_res = 16373.000000
+ITR 3: cell_count_com = 754, current_com = 527.803955
+
+
+
+Starting time 2014, iteration = 4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 1673.000000, com = 533.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=533.000000, current=527.803955, demand=0.001000
+estimateWeight: demand = 0.001000, init dev = 49.700031
+seekMinWeight: w = 0.100000, dev = 0.000000
+estimateWeight: BRACKET set = 0.100000, 1.000000
+estimateWeight: w = 0.550000, (0.100000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.775000, (0.550000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.887500, (0.775000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.943750, (0.887500, 1.000000), dev = 6.999999
+estimateWeight: w = 0.915625, (0.887500, 0.943750), dev = 0.000000
+estimateWeight: w = 0.929688, (0.915625, 0.943750), dev = 0.000000
+estimateWeight: w = 0.936719, (0.929688, 0.943750), dev = 3.500000
+estimateWeight: w = 0.933203, (0.929688, 0.936719), dev = 2.100000
+estimateWeight: w = 0.933203, dev = 2.100000
+Skipping RES: demand = -14700.000000, delta = 20.000000
+ITR 4: cell_count_res = 16373, current_res = 16373.000000
+ITR 4: cell_count_com = 825, current_com = 577.504822
+
+
+
+Starting time 2015, iteration = 5
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 2092.000000, com = 667.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=667.000000, current=577.504822, demand=89.495178
+estimateWeight: demand = 89.495178, init dev = 32.200012
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340986.625000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340970.125000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340955.875000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340955.875000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1024221.937500
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 364730.687500
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 71609.101562
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 9708.263672
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 366.101135
+estimateWeight: w = 1.035156, dev = 366.101135
+Skipping RES: demand = -14281.000000, delta = 20.000000
+ITR 5: cell_count_res = 16373, current_res = 16373.000000
+ITR 5: cell_count_com = 871, current_com = 609.705383
+
+
+
+Starting time 2016, iteration = 6
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 2510.000000, com = 800.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=800.000000, current=609.705383, demand=190.294617
+estimateWeight: demand = 190.294617, init dev = 41.300022
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340952.125000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340937.125000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340921.375000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340921.375000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1027895.250000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 368165.437500
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 73553.945312
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 10237.611328
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 529.903992
+estimateWeight: w = 1.035156, dev = 529.903992
+Skipping RES: demand = -13863.000000, delta = 20.000000
+ITR 6: cell_count_res = 16373, current_res = 16373.000000
+ITR 6: cell_count_com = 930, current_com = 651.006104
+
+
+
+Starting time 2017, iteration = 7
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 2928.000000, com = 933.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=933.000000, current=651.006104, demand=281.993896
+estimateWeight: demand = 281.993896, init dev = 37.800018
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340907.875000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340891.375000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340877.125000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340877.125000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1001471.187500
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 345590.000000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 61851.324219
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 7528.555664
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 247.099258
+estimateWeight: w = 1.035156, dev = 247.099258
+Skipping RES: demand = -13445.000000, delta = 20.000000
+ITR 7: cell_count_res = 16373, current_res = 16373.000000
+ITR 7: cell_count_com = 984, current_com = 688.806763
+
+
+
+Starting time 2018, iteration = 8
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 3347.000000, com = 1067.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=1067.000000, current=688.806763, demand=378.193237
+estimateWeight: demand = 378.193237, init dev = 54.600037
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340867.375000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340850.875000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340836.625000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340836.625000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1011340.250000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 354020.125000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 66216.835938
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 8625.761719
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 361.201050
+estimateWeight: w = 1.035156, dev = 361.201050
+Skipping RES: demand = -13026.000000, delta = 20.000000
+ITR 8: cell_count_res = 16373, current_res = 16373.000000
+ITR 8: cell_count_com = 1062, current_com = 743.407715
+
+
+
+Starting time 2019, iteration = 9
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 3765.000000, com = 1200.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=1200.000000, current=743.407715, demand=456.592285
+estimateWeight: demand = 456.592285, init dev = 52.500034
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340808.875000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340791.625000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340778.125000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340778.125000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 986076.000000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 332981.250000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 55913.558594
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 6374.633789
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 339.500671
+estimateWeight: w = 1.035156, dev = 339.500671
+Skipping RES: demand = -12608.000000, delta = 20.000000
+ITR 9: cell_count_res = 16373, current_res = 16373.000000
+ITR 9: cell_count_com = 1137, current_com = 795.908630
+
+
+
+Starting time 2020, iteration = 10
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 4183.000000, com = 1333.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=1333.000000, current=795.908630, demand=537.091370
+estimateWeight: demand = 537.091370, init dev = 127.399773
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340752.625000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340737.625000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340721.875000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340721.875000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1032645.875000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 372872.750000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 76710.976562
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 11422.341797
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 1139.604492
+estimateWeight: w = 1.035156, dev = 1139.604492
+Skipping RES: demand = -12190.000000, delta = 20.000000
+ITR 10: cell_count_res = 16373, current_res = 16373.000000
+ITR 10: cell_count_com = 1319, current_com = 923.310852
+
+
+
+Starting time 2021, iteration = 11
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 4602.000000, com = 1467.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=1467.000000, current=923.310852, demand=543.689148
+estimateWeight: demand = 543.689148, init dev = 74.200005
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340616.125000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340599.625000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340585.375000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340585.375000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1008491.250000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 351999.562500
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 65610.039062
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 8821.816406
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 573.304749
+estimateWeight: w = 1.035156, dev = 573.304749
+Skipping RES: demand = -11771.000000, delta = 20.000000
+ITR 11: cell_count_res = 16373, current_res = 16373.000000
+ITR 11: cell_count_com = 1425, current_com = 997.512146
+
+
+
+Starting time 2022, iteration = 12
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 5020.000000, com = 1600.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=1600.000000, current=997.512146, demand=602.487854
+estimateWeight: demand = 602.487854, init dev = 133.699753
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340536.625000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340520.125000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340505.875000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340505.875000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1005139.000000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 349352.687500
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 64530.730469
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 8791.007812
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 765.108093
+estimateWeight: w = 1.035156, dev = 765.108093
+Skipping RES: demand = -11353.000000, delta = 20.000000
+ITR 12: cell_count_res = 16373, current_res = 16373.000000
+ITR 12: cell_count_com = 1616, current_com = 1131.205078
+
+
+
+Starting time 2023, iteration = 13
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 5438.000000, com = 1733.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=1733.000000, current=1131.205078, demand=601.794922
+estimateWeight: demand = 601.794922, init dev = 132.999756
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340393.375000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340376.875000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340362.625000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340362.625000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1019025.125000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 361288.375000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 70942.539062
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 10503.685547
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 1043.011230
+estimateWeight: w = 1.035156, dev = 1043.011230
+Skipping RES: demand = -10935.000000, delta = 20.000000
+ITR 13: cell_count_res = 16373, current_res = 16373.000000
+ITR 13: cell_count_com = 1806, current_com = 1264.195801
+
+
+
+Starting time 2024, iteration = 14
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 5857.000000, com = 1867.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=1867.000000, current=1264.195801, demand=602.804199
+estimateWeight: demand = 602.804199, init dev = 147.699692
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340250.875000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340234.375000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340220.125000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340220.125000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1005155.500000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 349737.000000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 65125.765625
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 9283.245117
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 1036.011719
+estimateWeight: w = 1.035156, dev = 1036.011719
+Skipping RES: demand = -10516.000000, delta = 20.000000
+ITR 14: cell_count_res = 16373, current_res = 16373.000000
+ITR 14: cell_count_com = 2017, current_com = 1411.885498
+
+
+
+Starting time 2025, iteration = 15
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 6275.000000, com = 2000.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=2000.000000, current=1411.885498, demand=588.114502
+estimateWeight: demand = 588.114502, init dev = 107.799858
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1340092.625000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1340075.375000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1340061.875000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1340061.875000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 979434.750000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 328398.375000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 54973.808594
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 7066.426758
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 897.410400
+estimateWeight: w = 1.035156, dev = 897.410400
+Skipping RES: demand = -10098.000000, delta = 20.000000
+ITR 15: cell_count_res = 16373, current_res = 16373.000000
+ITR 15: cell_count_com = 2171, current_com = 1519.677979
+
+
+
+Starting time 2026, iteration = 16
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 6693.000000, com = 2133.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=2133.000000, current=1519.677979, demand=613.322021
+estimateWeight: demand = 613.322021, init dev = 188.299515
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1339977.125000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1339960.625000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1339946.375000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1339946.375000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 1007759.750000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 352319.250000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 66890.429688
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 10149.386719
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 1421.684814
+estimateWeight: w = 1.035156, dev = 1421.684814
+Skipping RES: demand = -9680.000000, delta = 20.000000
+ITR 16: cell_count_res = 16373, current_res = 16373.000000
+ITR 16: cell_count_com = 2440, current_com = 1707.964844
+
+
+
+Starting time 2027, iteration = 17
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 7112.000000, com = 2267.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=2267.000000, current=1707.964844, demand=559.035156
+estimateWeight: demand = 559.035156, init dev = 159.599640
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1339775.375000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1339758.125000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1339744.625000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1339744.625000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 992219.500000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 339372.937500
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 60700.410156
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 8775.603516
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 1372.688232
+estimateWeight: w = 1.035156, dev = 1372.688232
+Skipping RES: demand = -9261.000000, delta = 20.000000
+ITR 17: cell_count_res = 16373, current_res = 16373.000000
+ITR 17: cell_count_com = 2668, current_com = 1867.553711
+
+
+
+Starting time 2028, iteration = 18
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 7530.000000, com = 2400.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=2400.000000, current=1867.553711, demand=532.446289
+estimateWeight: demand = 532.446289, init dev = 254.099228
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1339604.375000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1339587.125000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1339573.625000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1339573.625000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 995624.687500
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 342628.250000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 62645.636719
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 9641.044922
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 1784.959473
+estimateWeight: w = 1.035156, dev = 1784.959473
+Skipping RES: demand = -8843.000000, delta = 20.000000
+ITR 18: cell_count_res = 16373, current_res = 16373.000000
+ITR 18: cell_count_com = 3031, current_com = 2121.635986
+
+
+
+Starting time 2029, iteration = 19
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 7948.000000, com = 2533.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=2533.000000, current=2121.635986, demand=411.364014
+estimateWeight: demand = 411.364014, init dev = 156.799652
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1339332.125000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1339314.875000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1339301.375000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1339301.375000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 986887.250000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 335452.125000
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 59344.625000
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 8976.559570
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 1733.863037
+estimateWeight: w = 1.035156, dev = 1733.863037
+Skipping RES: demand = -8425.000000, delta = 20.000000
+ITR 19: cell_count_res = 16373, current_res = 16373.000000
+ITR 19: cell_count_com = 3255, current_com = 2278.425049
+
+
+
+Starting time 2030, iteration = 20
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 8367.000000, com = 2667.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=2667.000000, current=2278.425049, demand=388.574951
+estimateWeight: demand = 388.574951, init dev = 176.399567
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1339164.125000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1339146.875000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1339133.375000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1339133.375000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 992121.875000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 339988.937500
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 61874.398438
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 9886.113281
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 2051.640869
+estimateWeight: w = 1.035156, dev = 2051.640869
+Skipping RES: demand = -8006.000000, delta = 20.000000
+ITR 20: cell_count_res = 16373, current_res = 16373.000000
+ITR 20: cell_count_com = 3507, current_com = 2454.812744
+
+
+
+Starting time 2031, iteration = 21
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 8785.000000, com = 2800.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=2800.000000, current=2454.812744, demand=345.187256
+estimateWeight: demand = 345.187256, init dev = 184.099533
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1338975.125000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1338957.875000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1338944.375000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1338944.375000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 987496.375000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 336398.812500
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 60341.011719
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 9745.374023
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 2170.632568
+estimateWeight: w = 1.035156, dev = 2170.632568
+Skipping RES: demand = -7588.000000, delta = 20.000000
+ITR 21: cell_count_res = 16373, current_res = 16373.000000
+ITR 21: cell_count_com = 3770, current_com = 2638.899902
+
+
+
+Starting time 2032, iteration = 22
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 9203.000000, com = 2933.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=2933.000000, current=2638.899902, demand=294.100098
+estimateWeight: demand = 294.100098, init dev = 220.499374
+seekMaxWeight: probmap sum = -nan
+seekMaxWeight: w = 10.000000, dev = 1338777.875000
+estimateWeight: BRACKET set = 1.000000, 10.000000
+estimateWeight: w = 5.500000, (1.000000, 10.000000), dev = 1338760.625000
+estimateWeight: w = 3.250000, (1.000000, 5.500000), dev = 1338747.125000
+estimateWeight: w = 2.125000, (1.000000, 3.250000), dev = 1338747.125000
+estimateWeight: w = 1.562500, (1.000000, 2.125000), dev = 993091.250000
+estimateWeight: w = 1.281250, (1.000000, 1.562500), dev = 341295.187500
+estimateWeight: w = 1.140625, (1.000000, 1.281250), dev = 63010.628906
+estimateWeight: w = 1.070312, (1.000000, 1.140625), dev = 10619.917969
+estimateWeight: w = 1.035156, (1.000000, 1.070312), dev = 2529.007568
+estimateWeight: w = 1.035156, dev = 2529.007568
+Skipping RES: demand = -7170.000000, delta = 20.000000
+ITR 22: cell_count_res = 16373, current_res = 16373.000000
+ITR 22: cell_count_com = 4085, current_com = 2859.384521
+
+
+
+Starting time 2033, iteration = 23
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 9622.000000, com = 3067.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=3067.000000, current=2859.384521, demand=207.615479
+estimateWeight: demand = 207.615479, init dev = 318.500305
+seekMinWeight: w = 0.100000, dev = 0.000000
+estimateWeight: BRACKET set = 0.100000, 1.000000
+estimateWeight: w = 0.550000, (0.100000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.775000, (0.550000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.887500, (0.775000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.943750, (0.887500, 1.000000), dev = 35.000015
+estimateWeight: w = 0.971875, (0.943750, 1.000000), dev = 139.999725
+estimateWeight: w = 0.985937, (0.971875, 1.000000), dev = 217.699387
+estimateWeight: w = 0.978906, (0.971875, 0.985937), dev = 178.499557
+estimateWeight: w = 0.982422, (0.978906, 0.985937), dev = 199.499466
+estimateWeight: w = 0.982422, dev = 199.499466
+Skipping RES: demand = -6751.000000, delta = 20.000000
+ITR 23: cell_count_res = 16373, current_res = 16373.000000
+ITR 23: cell_count_com = 4540, current_com = 3177.862305
+
+
+
+Starting time 2034, iteration = 24
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 10040.000000, com = 3200.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=3200.000000, current=3177.862305, demand=0.001000
+estimateWeight: demand = 0.001000, init dev = 248.499252
+seekMinWeight: w = 0.100000, dev = 0.000000
+estimateWeight: BRACKET set = 0.100000, 1.000000
+estimateWeight: w = 0.550000, (0.100000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.775000, (0.550000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.887500, (0.775000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.943750, (0.887500, 1.000000), dev = 10.499998
+estimateWeight: w = 0.915625, (0.887500, 0.943750), dev = 0.000000
+estimateWeight: w = 0.929688, (0.915625, 0.943750), dev = 0.000000
+estimateWeight: w = 0.936719, (0.929688, 0.943750), dev = 3.500000
+estimateWeight: w = 0.933203, (0.929688, 0.936719), dev = 1.400000
+estimateWeight: w = 0.933203, dev = 1.400000
+Skipping RES: demand = -6333.000000, delta = 20.000000
+ITR 24: cell_count_res = 16373, current_res = 16373.000000
+ITR 24: cell_count_com = 4895, current_com = 3426.344971
+
+
+
+Starting time 2035, iteration = 25
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 10458.000000, com = 3333.000000, os = 0.000000
+updateRandom called
+Skipping COM: demand = -93.344971, delta = 5.000000
+Skipping RES: demand = -5915.000000, delta = 20.000000
+ITR 25: cell_count_res = 16373, current_res = 16373.000000
+ITR 25: cell_count_com = 4895, current_com = 3426.344971
+
+
+
+Starting time 2036, iteration = 26
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 10877.000000, com = 3467.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=3467.000000, current=3426.344971, demand=0.001000
+estimateWeight: demand = 0.001000, init dev = 516.603760
+seekMinWeight: w = 0.100000, dev = 0.000000
+estimateWeight: BRACKET set = 0.100000, 1.000000
+estimateWeight: w = 0.550000, (0.100000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.775000, (0.550000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.887500, (0.775000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.943750, (0.887500, 1.000000), dev = 47.600029
+estimateWeight: w = 0.915625, (0.887500, 0.943750), dev = 0.000000
+estimateWeight: w = 0.929688, (0.915625, 0.943750), dev = 0.000000
+estimateWeight: w = 0.936719, (0.929688, 0.943750), dev = 22.400003
+estimateWeight: w = 0.933203, (0.929688, 0.936719), dev = 5.599999
+estimateWeight: w = 0.933203, dev = 5.599999
+Skipping RES: demand = -5496.000000, delta = 20.000000
+ITR 26: cell_count_res = 16373, current_res = 16373.000000
+ITR 26: cell_count_com = 5633, current_com = 3942.908936
+
+
+
+Starting time 2037, iteration = 27
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 11295.000000, com = 3600.000000, os = 0.000000
+updateRandom called
+Skipping COM: demand = -342.908936, delta = 5.000000
+Skipping RES: demand = -5078.000000, delta = 20.000000
+ITR 27: cell_count_res = 16373, current_res = 16373.000000
+ITR 27: cell_count_com = 5633, current_com = 3942.908936
+
+
+
+Starting time 2038, iteration = 28
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 11713.000000, com = 3733.000000, os = 0.000000
+updateRandom called
+Skipping COM: demand = -209.908936, delta = 5.000000
+Skipping RES: demand = -4660.000000, delta = 20.000000
+ITR 28: cell_count_res = 16373, current_res = 16373.000000
+ITR 28: cell_count_com = 5633, current_com = 3942.908936
+
+
+
+Starting time 2039, iteration = 29
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 12132.000000, com = 3867.000000, os = 0.000000
+updateRandom called
+Skipping COM: demand = -75.908936, delta = 5.000000
+Skipping RES: demand = -4241.000000, delta = 20.000000
+ITR 29: cell_count_res = 16373, current_res = 16373.000000
+ITR 29: cell_count_com = 5633, current_com = 3942.908936
+
+
+
+Starting time 2040, iteration = 30
+#1575 Looking for probmap ./gluc/Data/growth_probmap_res.bil
+#1580 Reading ./gluc/Data/growth_probmap_res.bil
+initGridMap(fname=./gluc/Data/growth_probmap_res.bil, count=5264490, size=4
+#1575 Looking for probmap ./gluc/Data/growth_probmap_com.bil
+#1580 Reading ./gluc/Data/growth_probmap_com.bil
+initGridMap(fname=./gluc/Data/growth_probmap_com.bil, count=5264490, size=4
+desired growth: res = 12550.000000, com = 4000.000000, os = 0.000000
+updateRandom called
+CalcProbCom: desired=4000.000000, current=3942.908936, demand=57.091064
+estimateWeight: demand = 57.091064, init dev = 1124.205566
+seekMinWeight: w = 0.100000, dev = 0.000000
+estimateWeight: BRACKET set = 0.100000, 1.000000
+estimateWeight: w = 0.550000, (0.100000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.775000, (0.550000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.887500, (0.775000, 1.000000), dev = 0.000000
+estimateWeight: w = 0.943750, (0.887500, 1.000000), dev = 107.799858
+estimateWeight: w = 0.915625, (0.887500, 0.943750), dev = 0.000000
+estimateWeight: w = 0.929688, (0.915625, 0.943750), dev = 0.000000
+estimateWeight: w = 0.936719, (0.929688, 0.943750), dev = 19.600000
+estimateWeight: w = 0.940234, (0.936719, 0.943750), dev = 54.600037
+estimateWeight: w = 0.940234, dev = 54.600037
+Skipping RES: demand = -3823.000000, delta = 20.000000
+ITR 30: cell_count_res = 16373, current_res = 16373.000000
+ITR 30: cell_count_com = 7239, current_com = 5067.369141
+writeGridMap(./gluc/DriverOutput/Maps/summary, 2040, 5264490, MPI_UNSIGNED_CHAR, 1)
+writeGridMap(./gluc/DriverOutput/Maps/change, 2040, 5264490, MPI_UNSIGNED_CHAR, 1)
+P0: Model Run Complete
+Run Report
+Start Time = 2010, Ending Time = 2040, actual iterations = 29
+
+Residential Variables
+Static Probability Map = ./gluc/Data/growth_probmap_res.bil
+w_utilities_res=1.000000
+w_spontaneous_res=0.000100
+w_neighbors_res=0.300000
+w_probmap_res=0.500000
+w_dyanmic_res=30.000000
+
+Commerical Variables
+Static Probability Map = ./gluc/Data/growth_probmap_com.bil
+w_utilities_com=1.000000
+w_spontaneous_com=0.001000
+w_neighbors_com=0.030000
+w_probmap_com=0.500000
+w_dyanmic_com=30.000000
+
+Initial Maps
+Landuse Map = ./gluc/Data/landcover.bil
+Nogrowth Map = ./gluc/Data/nogrowth.bil
+
+Landuse Change
+Actual Change Cells: Res = 16373, Com = 7239, OS = 0
+Desired Change: Res = 12550.00, Com = 4000.00, OS = 24000.00
+Actual Change: Res = 16373.00, Com = 5067.37, OS = 0.00
+r.in.gdal --overwrite input=./gluc/DriverOutput/Maps/change.bil output=Test_0308_ori_nogrowth_change
+WARNING: Raster map <Test_0308_ori_nogrowth_change> already exists and will
+         be overwritten
+r.in.gdal --overwrite input=./gluc/DriverOutput/Maps/summary.bil output=Test_0308_ori_nogrowth_summary
+WARNING: Raster map <Test_0308_ori_nogrowth_summary> already exists and
+         will be overwritten
+r.mapcalc "Test_0308_ori_nogrowth_ppcell=if(Test_0308_ori_nogrowth_change==21,pop_density,0)"
+r.mapcalc "Test_0308_ori_nogrowth_hhcell=Test_0308_ori_nogrowth_ppcell/2.6"
+r.mapcalc "Test_0308_ori_nogrowth_empcell=if(Test_0308_ori_nogrowth_change==23,emp_density,0)"
+r.mapcalc "Test_0308_ori_nogrowth_year=if(Test_0308_ori_nogrowth_summary>0,Test_0308_ori_nogrowth_summary+2010,0)"
+r.out.gdal input=Test_0308_ori_nogrowth_change output=./Data/Test_0308_ori_nogrowth_change.tif type=UInt16
+r.out.gdal input=Test_0308_ori_nogrowth_summary output=./Data/Test_0308_ori_nogrowth_summary.tif type=UInt16
+r.out.gdal input=Test_0308_ori_nogrowth_ppcell output=./Data/Test_0308_ori_nogrowth_ppcell.tif type=UInt16
+r.out.gdal input=Test_0308_ori_nogrowth_empcell output=./Data/Test_0308_ori_nogrowth_empcell.tif type=UInt16
+r.out.gdal input=Test_0308_ori_nogrowth_year output=./Data/Test_0308_ori_nogrowth_year.tif type=UInt16
+r.out.ascii -i input=Test_0308_ori_nogrowth_change output=./Data/Test_0308_ori_nogrowth_change.txt null=-1
+r.out.ascii -i input=Test_0308_ori_nogrowth_summary output=./Data/Test_0308_ori_nogrowth_summary.txt null=-1
+r.out.ascii -i input=Test_0308_ori_nogrowth_ppcell output=./Data/Test_0308_ori_nogrowth_ppcell.txt null=-1
+r.out.ascii -i input=Test_0308_ori_nogrowth_empcell output=./Data/Test_0308_ori_nogrowth_empcell.txt null=-1
+r.out.ascii -i input=Test_0308_ori_nogrowth_year output=./Data/Test_0308_ori_nogrowth_year.txt null=-1
