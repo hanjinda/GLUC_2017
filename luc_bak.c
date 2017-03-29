@@ -86,13 +86,9 @@ static int   refzones = 0, *refmap = NULL, *refcounts = NULL;
 static float *ranvals;
 static float *resprob, *comprob, *osprob;
 static float desired_res = 0.0, desired_com = 0.0, desired_os = 0.0;
-/* 20170327 - for test the population */
-static float pop1 = 197450.0, pop2 = 210000.0, com1 = 111000.0, com2 = 115000.0;
-/* 20170327 - global for randval */
-static float randval_global;
 static float current_res = 0.0, current_com = 0.0, current_os = 0.0;
 static float delta_res = 20.0, delta_com = 5.0, delta_os = 500.0;
-static float best_prob_res = 0.235, best_prob_com = 0.215, best_prob_os = 0.01;
+static float best_prob_res = 0.5, best_prob_com = 0.25, best_prob_os = 0.01;
 static float k_min_res, k_min_com, k_min_os;
 
 static float *utilities_res, *utilities_com, *utilities_os, *utilities_tmp;
@@ -103,10 +99,6 @@ static int   diffusion_init_step, diffusion_steps_os;
 static float openspace_los;
 
 static char *outbuf;
-/* 20170327 - global for pop and com */
-static int lu_count_res;
-static int lu_count_com;
-
 
 
 /* MPI information */
@@ -185,9 +177,13 @@ void setModel(SUBMODELS model, int val)
    return;
 }
 
+
 /* Configure some parameters to the make it easier to 
 ** allocate memory for the data grids.
 */
+
+
+
 void LUCconfigGrids(int rows, int cols, int *gridrows)
 {
     int i;
@@ -256,11 +252,9 @@ static void flagDevelopable(unsigned char *dev, unsigned char *luptr,
             break;
         case LU_LRES: case LU_HRES:
             *(dev+i) = !(RES_FLAG & flag);
-			lu_count_res += 1;
             break;
         case LU_COM:
             *(dev+i) = !(COM_FLAG & flag);
-			lu_count_com += 1;
             break;
         case LU_ROAD:
             *(dev+i) = !(ROAD_FLAG & flag);
@@ -310,12 +304,16 @@ void shareGrid(void *dst, int count, MPI_Datatype type)
 */
 
 
-static void setGridMapByte(unsigned char *ptr, int count, float v){
+static void setGridMapByte(unsigned char *ptr, int count, float v)
+{
     unsigned char x = v;
     int i;
+
     for (i=0; i<count; i+=1)
         *(ptr+i) = x;
+
     shareGrid(ptr, count, MPI_UNSIGNED_CHAR);
+
     return;
 }
 
@@ -324,39 +322,57 @@ static void setGridMapByte(unsigned char *ptr, int count, float v){
 ** of handling this but for now we'll go with it.  It's only used
 ** when maps that are expected to be available must be turned-off.
 */
-static void setGridMapInt(int *ptr, int count, float v){
+static void setGridMapInt(int *ptr, int count, float v)
+{
     int x = v;
     int i;
+
     for (i=0; i<count; i+=1)
         *(ptr+i) = x;
+
     shareGrid(ptr, count, MPI_INT);
+
     return;
 }
 
-static void setGridMapFloat(float *ptr, int count, float v){
+static void setGridMapFloat(float *ptr, int count, float v)
+{
     int i;
+
     for (i=0; i<count; i+=1)
         *(ptr+i) = v;
+
     shareGrid(ptr, count, MPI_FLOAT);
+
     return;
 }
+
+
 
 /* Copy from src grid buffer to dst grid buffer.
 */
-static void copyGridMap(void *dst, void *src, int count, int size){
+
+
+static void copyGridMap(void *dst, void *src, int count, int size)
+{
+
     memcpy(dst, src, count * size);
     return;
 }
 
-static void checkHeader(char *fname){
+static void checkHeader(char *fname)
+{
     int rows, cols, size;
+
     if (myrank != 0) return;
+
     BILreadHeader(fname, &rows, &cols, &size);
     if (rows != gRows || cols != gCols)  {
         sprintf(estring, "map %s has wrong dimensions", fname);
         errorExit(estring);
     }
 }
+
 
 /* Initialize grids.  Sufficient space is allocated for all
 ** elements plus two additional rows (overlaps with neighboring
@@ -410,6 +426,7 @@ static char *initGridMap(char *fname, int count, int typesize)
         /* calculate seek position into file (first passive row)
         */
         seekbyte = (myrank == 0) ? 0 : (srow-1) * gCols * typesize;
+
         BILreadBuffer(fname, seekbyte, readptr, count+passive, typesize);
     }
 
@@ -437,9 +454,13 @@ static void freeGridMap(char *bufptr, int typesize)
 }
 
 
+
+
 /* Mask a grid using a landuse map and lu_type flag.  The masked
 ** grid is returned with corresponding cells intact and all others
 ** set to zero.
+
+
 
 
 /* LOGICAL OR two grids together. Grids are converted to boolean
@@ -447,11 +468,14 @@ static void freeGridMap(char *bufptr, int typesize)
 ** to be true.
 */
 static void orGridMap(unsigned char *dst, unsigned char *m1, 
-                      unsigned char *m2, int count){
+                      unsigned char *m2, int count)
+{
     int i;
+
     for (i=0; i<count; i+=1)  {
         dst[i] = (m1[i] > 0) | (m2[i] > 0);
     }
+
     return;
 }
 
@@ -514,14 +538,18 @@ static int writeGridMap(char *fname, int time, char *src, int count,
 
     if (myrank == 0)
         BILwriteBuffer(fstring, 0, outbuf, gElements, typesize);
+
     return 1;
 }
 
+
 static void ASCwrite(char *fname, int rows, int cols, float xll, float yll,
-                     float cellsize, MPI_Datatype type, void *src){
+                     float cellsize, MPI_Datatype type, void *src)
+{
     int i,j;
     double x;
     FILE *f;
+
     if (debug && myrank == 0)  {
         fprintf(stderr, "ASCwrite to %s\n", fname);
     }
@@ -544,29 +572,40 @@ static void ASCwrite(char *fname, int rows, int cols, float xll, float yll,
         }
         fprintf(f, "\n");
     }
+
     return;
 }
+
 
 /* Write Grid Map in the ASC format.
 ** 
 */
+
+
 static int writeAscGridMap(char *fname, int time, char *src, int count, 
-        MPI_Datatype type){
+        MPI_Datatype type)
+{
     int i, typesize;
     char fstring[1024];
     MPI_Status status;
     char *ptr = outbuf;
+
     if (fname == NULL) return 1;
+
     if (debug && myrank == 0)
         fprintf(stderr, "writeAscGridMap(%s, %d, %d)\n", 
                 fname, time, count);
+
     MPI_Type_size(type, &typesize);
+
     sprintf(fstring, "%s.asc", fname);
+
     //* if running single processor then write write and return 
     if (nproc == 1)  {
         ASCwrite(fstring, gRows, gCols, xllcorner, yllcorner, cellsize, type, src);
         return;
     }
+
 #ifdef MYGATHER
     if (myrank == 0)  {
         memmove(ptr, src, count * typesize);
@@ -583,14 +622,20 @@ static int writeAscGridMap(char *fname, int time, char *src, int count,
     MPI_Gatherv(src, count, type, ptr, recvcounts+1,
                 displacements+1, type, 0, MPI_COMM_WORLD);
 #endif
+
     if (myrank == 0)
         ASCwrite(fstring, gRows, gCols, xllcorner, yllcorner, cellsize, type, src);
+
     return 1;
 }
 
+
  //Initialize the data grids, handle memory allocation 
 // and initialization based on SME variables.
-void LUCinitGrids(){
+
+void LUCinitGrids()
+{
+
     xllcorner = SMEgetFloat("XLLCORNER", 0.0);
     yllcorner = SMEgetFloat("YLLCORNER", 0.0);
     cellsize = SMEgetFloat("CELLSIZE", 30.0);
@@ -608,21 +653,20 @@ void LUCinitGrids(){
 
     demandres = GRAPHgetGraph(SMEgetString("DEMAND_GRAPH_RES",
                                            "Population"));
-    fprintf(stderr, "20170317: DEMAND_GRAPH_RES set to %s\n", 
-                SMEgetString("DEMAND_GRAPH_RES", "Population"));	
     demandcom = GRAPHgetGraph(SMEgetString("DEMAND_GRAPH_COM",
                                            "Employment"));
     if (demandres == NULL || demandcom == NULL)
         errorExit("missing DEMAND_GRAPH_RES or DEMAND_GRAPH_COM graphs");
 
-	// debug = 0;
     // Get the RES and COM growth graphs
     if (debug && myrank == 0)  {
-        fprintf(stderr, "2010-3: DEMAND_GRAPH_RES set to %s\n", 
+        fprintf(stderr, "DEMAND_GRAPH_RES set to %s\n", 
                 SMEgetString("DEMAND_GRAPH_RES", "Population"));
-        fprintf(stderr, "2010-3: DEMAND_GRAPH_COM set to %s\n", 
+        fprintf(stderr, "DEMAND_GRAPH_COM set to %s\n", 
                 SMEgetString("DEMAND_GRAPH_COM", "Employment"));
     }
+
+
 
     nngraph = GRAPHgetGraph("NearestNeighbors");
     if (nngraph == NULL)
@@ -631,6 +675,7 @@ void LUCinitGrids(){
     demandos = GRAPHgetGraph("CellDemandOS");
     nnosgraph = GRAPHgetGraph("NearestNeighborsOS");
     if (nnosgraph == NULL) nnosgraph = nngraph;
+    
     
     // reads the probabilty map if one is specified
     // otherwise probability map will be set to 1.0
@@ -680,7 +725,7 @@ void LUCinitGrids(){
     diffusion_res_flags = SMEgetInt("U_DIFFUSE_RES_FLAGS", RES_FLAG);
     diffusion_com_flags = SMEgetInt("U_DIFFUSE_COM_FLAGS", COM_FLAG);
     diffusion_os_flags = SMEgetInt("U_DIFFUSE_OS_FLAGS", OS_FLAG);
-    diffusion_init_step = SMEgetInt("U_DIFFUSE_INITSTEPS", 10);
+    diffusion_init_step = SMEgetInt("U_DIFFUSE_INITSTEPS", 1);
     diffusion_rate_os = SMEgetFloat("DIFFUSION_RATE_OS", 0.2);
     //test diffusion rate
     diffusion_rate_os = SMEgetFloat("DIFFUSION_RATE_OS", 0.0);
@@ -749,21 +794,21 @@ void LUCinitGrids(){
     
 
     /* driver weights */
-    w_probmap_res = SMEgetFloat("W_PROBMAP_RES", 0.5);
-    w_probmap_com = SMEgetFloat("W_PROBMAP_COM", 0.5);
+    w_probmap_res = SMEgetFloat("W_PROBMAP_RES", 1.0);
+    w_probmap_com = SMEgetFloat("W_PROBMAP_COM", 1.0);
     w_probmap_os = SMEgetFloat("W_PROBMAP_OS", 1.0);
-    w_dynamic_res = SMEgetFloat("W_DYNAMIC_RES", 30.0);
-    w_dynamic_com = SMEgetFloat("W_DYNAMIC_COM", 30.0);
-    w_dynamic_os = SMEgetFloat("W_DYNAMIC_OS", 10.0);
-    w_utilities_res = SMEgetFloat("W_UTILITIES_RES", 1.0);
-    w_utilities_com = SMEgetFloat("W_UTILITIES_COM", 1.0);
-    w_utilities_os = SMEgetFloat("W_UTILITIES_OS", 1.0);
-    w_spontaneous_res = SMEgetFloat("W_RES_SPONTANEOUS", 20.0);
-    w_spontaneous_com = SMEgetFloat("W_COM_IND_SPONTANEOUS", 20.0);
-    w_spontaneous_os = SMEgetFloat("W_OPENSPACE_SPONTANEOUS", 1.0);
-    w_neighbors_res = SMEgetFloat("W_RES_NEIGHBORS", 1);
-    w_neighbors_com = SMEgetFloat("W_COM_IND_NEIGHBORS", 1);
-    w_neighbors_water = SMEgetFloat("W_OPENSPACE_WATER", 1);
+    w_dynamic_res = SMEgetFloat("W_DYNAMIC_RES", 1.0);
+    w_dynamic_com = SMEgetFloat("W_DYNAMIC_COM", 1.0);
+    w_dynamic_os = SMEgetFloat("W_DYNAMIC_OS", 1.0);
+    w_utilities_res = SMEgetFloat("W_UTILITIES_RES", 10.0);
+    w_utilities_com = SMEgetFloat("W_UTILITIES_COM", 10.0);
+    w_utilities_os = SMEgetFloat("W_UTILITIES_OS", 10.0);
+    w_spontaneous_res = SMEgetFloat("W_RES_SPONTANEOUS", 10.0);
+    w_spontaneous_com = SMEgetFloat("W_COM_IND_SPONTANEOUS", 10.0);
+    w_spontaneous_os = SMEgetFloat("W_OPENSPACE_SPONTANEOUS", 10.0);
+    w_neighbors_res = SMEgetFloat("W_RES_NEIGHBORS", 0.1);
+    w_neighbors_com = SMEgetFloat("W_COM_IND_NEIGHBORS", 0.1);
+    w_neighbors_water = SMEgetFloat("W_OPENSPACE_WATER", 0.1);
     w_growth_trend_res = SMEgetFloat("W_GROWTH_TRENDS_RES", 1.0);
     w_growth_trend_com = SMEgetFloat("W_GROWTH_TRENDS_COM_IND", 1.0);
     w_growth_trend_os = SMEgetFloat("W_GROWTH_TRENDS_OPENSPACE", 1.0);
@@ -1071,51 +1116,22 @@ float estimateWeight(float demand, float best, float delta,
 void updateProbRes(float *p, int count)
 {
     int i;
-    // edits by pan - 03/01/2017
-    float w, maxp, demand;
-
-    // calculate the demand
-    demand = desired_res - current_res;
-    if (demand <= 0)  {
-        demand = k_min_res;
-    }
-
-    if (debug && myrank == 0)  {
-       fprintf(stderr, "CalcProbRes: desired=%f, current=%f, demand=%f\n", 
-               desired_res, current_res, demand);
-    }
 
     // set the probability map
     for (i=0; i<count; i+=1)  {
       if (boundary[i]) {
         p[i] = powf(probmap_res[i], w_probmap_res)
-              + powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_res)
+              * powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_res)
               //  * powf(1, w_neighbors_res)
                //* powf(nngraph, w_neighbors_res)
-               + powf(w_spontaneous_res * drand48() +
+               //* powf(w_spontaneous_res * drand48() +
+                 * powf(w_spontaneous_res * 0 +
                       w_utilities_res * utilities_res[i], w_dynamic_res);
                //         w_utilities_res * 1, w_dynamic_res);
         }
         else
             p[i] = 0.0;
     }
-    // add normalization - pan edits 03/01/17
-    maxp = spatialMaxF(p, count);
-    for (i=0; i<count; i+=1)  {
-        p[i] /= (maxp / best_prob_res);
-    }
-
-    // estimate that will deliver demand
-    w = estimateWeight(demand, best_prob_res, delta_res, p, density_res);
-    if (w == 0.0 && myrank == 0)
-        fprintf(stderr, "WARNING: failed to establish bracket, w=%f\n", w); 
-
-    for (i=0; i<count; i+=1)  {
-        p[i] = (p[i] * w > best_prob_res) ? best_prob_res : p[i] * w;
-    }
-
-	
-    return;
 }
 
 // calcProbRes -- updates the current probabilty 
@@ -1145,10 +1161,10 @@ void calcProbRes(float *p, int count)
         avail += 1;
         p[i] = powf(probmap_res[i], w_probmap_res)
                //* powf(nngraph, w_neighbors_res)
-               + powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_res)
+               * powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_res)
                //* powf(1, w_neighbors_res)
-               + powf(w_spontaneous_res * drand48() +
-                //* powf(w_spontaneous_res * 0 +
+               //* powf(w_spontaneous_res * drand48() +
+                 * powf(w_spontaneous_res * 0 +
                       w_utilities_res * utilities_res[i], w_dynamic_res);
                //         w_utilities_res * 1, w_dynamic_res);
         }
@@ -1185,50 +1201,21 @@ void calcProbRes(float *p, int count)
 void updateProbCom(float *p, int count)
 {
     int i;
-    //edits by pan -03/01/2017
-    float w, maxp, demand;
-
-    // calculate the demand
-    demand = desired_com - current_com;
-    if (demand <= 50)  {
-        demand = k_min_com;
-    }
-
-    if (debug && myrank == 0)  {
-       fprintf(stderr, "CalcProbCom: desired=%f, current=%f, demand=%f\n", 
-               desired_com, current_com, demand);
-    }
 
     // set the probability map
     for (i=0; i<count; i+=1)  {
       if (boundary[i]) {
         p[i] = powf(probmap_com[i], w_probmap_com)
                //* powf(nngraph, w_neighbors_com)
-                + powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_com)
+               * powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_com)
                //* powf(1, w_neighbors_com)
-               + powf(w_spontaneous_com * drand48() +
-               //  * powf(w_spontaneous_com * 0 +
+               //* powf(w_spontaneous_com * drand48() +
+                 * powf(w_spontaneous_com * 0 +
                       w_utilities_com * utilities_com[i], w_dynamic_com);
                //         w_utilities_com * 1, w_dynamic_com);
         }
         else
             p[i] = 0.0;
-    // add normalization - pan edits 03/01/17
-    maxp = spatialMaxF(p, count);
-    for (i=0; i<count; i+=1)  {
-        p[i] /= (maxp / best_prob_res);
-    }
-
-    // estimate that will deliver demand
-    w = estimateWeight(demand, best_prob_res, delta_res, p, density_res);
-    if (w == 0.0 && myrank == 0)
-        fprintf(stderr, "WARNING: failed to establish bracket, w=%f\n", w); 
-
-    for (i=0; i<count; i+=1)  {
-        p[i] = (p[i] * w > best_prob_res) ? best_prob_res : p[i] * w;
-    }
-
-    return;
     }
 }
 
@@ -1258,11 +1245,11 @@ void calcProbCom(float *p, int count)
     for (i=0; i<count; i+=1)  {
       if (boundary[i] && !nogrowth[i] && developable[i])
         p[i] = powf(probmap_com[i], w_probmap_com)
-               + powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_com)
+               * powf(GRAPHinterp(nngraph, nndev[i]), w_neighbors_com)
                //* powf(1, w_neighbors_com)
                //* powf(nngraph, w_neighbors_com)  
-             + powf( w_spontaneous_com * drand48() 
-               // powf( w_spontaneous_com * 0
+             //* powf( w_spontaneous_com * drand48() * 0.01
+               * powf( w_spontaneous_com * 0
                            + w_utilities_com * utilities_com[i], 
              //                + w_utilities_com * 1,
                          w_dynamic_com);
@@ -1403,17 +1390,6 @@ void updateLU(unsigned char *lu, unsigned char *change, int count)
         if (change[i]) lu[i] = change[i];
 }
 
-/*
-float getRandom(float input){
-	float result;
-	while (result <= input * 1.05 || result >= input * 0.95){
-		result = input + drand48()*0.1;
-
-	}
-	fprintf(stderr, "20170310 sfk random: %f\n", result);
-	return result;
-}
-*/
 
 void updateRandom(float *rand, int count, int itr)
 {
@@ -1428,7 +1404,7 @@ void updateRandom(float *rand, int count, int itr)
     //if ((cptr = SMEgetFileName("RANDOM_MAP")) == NULL)  { - force run -edits by Pan 02/17/2017
         for (i=0; i<count; i+=1)
    //         rand[i] = drand48(); -edits by Pan 02/17/2017
-              rand[i] = 0.200;
+              rand[i] = 0.2;
         return;
     //} -force run -edits by Pan 02/17/2017
 
@@ -1481,17 +1457,6 @@ void readProbmap(float **p, int count, int type, char *name, int year)
     }
 }
 
-/* calculation res & com incresement 20170308 - jd
-*/
-float calIncre(float demandEnd, float demandStart, float startTime, float endTime){
-
-
-	fprintf(stderr, "20170307 --> starttime: %f\n", demandStart );
-	float increment = (demandEnd - demandStart)/(endTime - startTime);
-	fprintf(stderr, "20170309: probres=%lu, lu=%lu \n", sizeof(resprob), sizeof(lu));
-	return increment;
-}
-
 /* Run the LUC Model - 
 */
 void LUCrun()
@@ -1504,18 +1469,11 @@ void LUCrun()
     char *cptr;
     unsigned char *mask;
     double score;
+
     stime = SMEgetInt("START_DATE", 0);
     etime = SMEgetInt("END_DATE", 0);
     timestep = SMEgetInt("TIMESTEP", 1);
-
     if (debug && myrank == 0)  {
-		float increment_res = calIncre(GRAPHinterp(demandres, etime), GRAPHinterp(demandres, stime), (float)stime, (float)etime);
-		float increment_com = calIncre(GRAPHinterp(demandcom, etime), GRAPHinterp(demandcom, stime), (float)stime, (float)etime);
-
-		fprintf(stderr, "20170308 --> result_res: %f, result_com= %f \n", increment_res,increment_com);
-		fprintf(stderr, "20170315 --> demandres: %p, demandcom: %p \n", (void *) &demandres, (void *) &demandcom);
-		fprintf(stderr, "20170317-2 --> A: %f, B: %f \n", GRAPHinterp(demandres, 2011), GRAPHinterp(demandcom, 0));
-
         fprintf(stderr, "LUCrun: start=%d, end=%d, timestep=%d\n",
                 stime, etime,timestep); 
         fprintf(stderr, "starting res = %f, starting com = %f\n",
@@ -1548,22 +1506,13 @@ void LUCrun()
     readProbmap(&probmap_com, elements, sizeof (float),
                 //SMEgetFileName("PROBMAP_COM"), stime); - change stime to 0 - edits by pan at 02/17/2017
                   SMEgetFileName("PROBMAP_COM"), stime);
-   
-/*
-	// 20170327 - lu_count_res, lu_count_com
-	fprintf(stderr, "20170327-1 - lu_count_res = %d, lu_count_com = %d\n", lu_count_res, lu_count_com);
-	float dev_percengate_res = (float)GRAPHinterp(demandres, etime)/(float)pop1;
-	float dev_percengate_com = (float)GRAPHinterp(demandcom, etime)/(float)com1;
-    fprintf(stderr, "20170327-2 - percentage_res = %f, percentage_com = %f\n", dev_percengate_res,dev_percengate_com  );
-	float final_developable_res = (float)lu_count_res * dev_percengate_res;
-	float final_developable_com = (float)lu_count_com * dev_percengate_com;
-    fprintf(stderr, "20170327-3 - final_developable_res = %f, developable_com = %f\n", final_developable_res,final_developable_com  );
-*/
+
+
     //   MAINLOOP
     for (time=stime+timestep; time<etime+timestep; time+=timestep)  {
    //for (time=stime+timestep; time<=stime+timestep+timestep+timestep+timestep+timestep+timestep; time+=timestep)  {
         itr += 1;
-		fprintf(stderr, "20170310-4 --> A: %d, B: %d \n", lu_count_res, lu_count_com);
+
         if (debug && myrank == 0)  {
             fprintf(stderr, "\n\n\nStarting time %d, iteration = %d\n",
                     time, itr);
@@ -1574,10 +1523,10 @@ void LUCrun()
         // reading existing probmaps.
         readProbmap(&probmap_res, elements, sizeof (float),
                     //SMEgetFileName("PROBMAP_RES"), time); - change time to stime - edits by pan at 02/17/2017
-                      SMEgetFileName("PROBMAP_RES"), time);
+                      SMEgetFileName("PROBMAP_RES"), stime);
         readProbmap(&probmap_com, elements, sizeof (float),
                     //SMEgetFileName("PROBMAP_COM"), time); - change time to stime - edits by pan at 02/17/2017
-                      SMEgetFileName("PROBMAP_COM"), time);
+                      SMEgetFileName("PROBMAP_COM"), stime);
 
         desired_res = GRAPHinterp(demandres, time) - 
                       GRAPHinterp(demandres, stime);
@@ -1600,20 +1549,8 @@ void LUCrun()
         nearestNeighbors(nnos, nntmp, OS_FLAG, lu, erow-srow, gCols);
 #endif
 
-		// 20170327 - lu_count_res, lu_count_com
-		fprintf(stderr, "20170327-1 - lu_count_res = %d, lu_count_com = %d\n", lu_count_res, lu_count_com);
-		float dev_percengate_res = (float)GRAPHinterp(demandres, etime)/(float)pop1;
-		float dev_percengate_com = (float)GRAPHinterp(demandcom, etime)/(float)com1;
-		fprintf(stderr, "20170327-2 - percentage_res = %f, percentage_com = %f\n", dev_percengate_res,dev_percengate_com  );
-		float final_developable_res = (float)lu_count_res * dev_percengate_res;
-		float final_developable_com = (float)lu_count_com * dev_percengate_com;
-		fprintf(stderr, "20170327-3 - final_developable_res = %f, developable_com = %f\n", final_developable_res,final_developable_com  );
 
-         // 20170337 =  temp change
-		// desired_res = final_developable_res;
-		//desired_com = final_developable_com;
-
-        // updateRandom(ranvals, elements, itr);
+        updateRandom(ranvals, elements, itr);
 
 
         // COMMERCIAL DEVELOPMENT
@@ -1621,9 +1558,7 @@ void LUCrun()
                         diffusion_com_flags, lu, erow-srow, gCols);
         if (desired_com - current_com > delta_com)  {
             flagDevelopable(developable, lu, elements, nondevelopable_flags);
-			//20170327 - next works            
-			calcProbCom(comprob, elements);
-			//fprintf(stderr, "20170308 %f \n", (float)sizeof(developable));
+            calcProbCom(comprob, elements);
             developCells(&current_com, &cell_count_com, comprob, density_com,
                         LU_COM, itr); 
             com = spatialCount(lu, elements, LU_COM);
@@ -1650,10 +1585,6 @@ void LUCrun()
             fprintf(stderr, "Skipping RES: demand = %f, delta = %f\n",
                     desired_res - current_res, delta_res);
         }
-
-		// 20170327 - from the p_com = comprob & p_res = resprob, sort and get the p, get p[dev]
-
-        updateRandom(ranvals, elements, itr);
 
 #ifdef OPENSPACE
         // OPENSPACE DEVELOPMENT
@@ -1691,7 +1622,6 @@ void LUCrun()
     com = spatialCount(lu, elements, LU_COM);
     os = spatialCount(lu, elements, LU_OS);
 
-
     writeAscGridMap(SMEgetFileName("FINAL_DIFFUSION_RES_MAP"), etime,
                  (char *)utilities_res, elements, MPI_FLOAT);
     writeAscGridMap(SMEgetFileName("FINAL_DIFFUSION_COM_MAP"), etime,
@@ -1714,7 +1644,7 @@ void LUCrun()
     if (debug)
         fprintf(stderr, "P%d: Model Run Complete\n", myrank);
 
-	//fprintf(stderr, "20170309: %f \n", (float)resprob[418]);
+
     // WARNING: the following code is running only on the root processor.
     // Do NOT attempt computations that require all processors.
     if (myrank == 0)  {
