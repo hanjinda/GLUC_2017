@@ -21,4 +21,11 @@ probility map.
 The gluc program may be used independently of LEAM but certain historic
 anomalies may be confusing.  Hopefully these will be removed over time.
 
-## 
+## src
+origional version gluc
+
+## stockholm2016
+stockholm spec version gluc
+
+## springfield
+spring spec version gluc
