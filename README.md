@@ -17,7 +17,7 @@ number of people assigned to a cell), a employment per cell raster map (
 total number of jobs assigned to a cell), and optionally a final
 probility map.
 
-## Note
+## Notes
 The gluc program may be used independently of LEAM but certain historic
 anomalies may be confusing.  Hopefully these will be removed over time.
 
