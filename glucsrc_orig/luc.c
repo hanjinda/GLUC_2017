@@ -13,7 +13,6 @@
 **
 ** Copyright (C) 2013 LEAMgroup, Inc. Released under GPL v2.
 */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
